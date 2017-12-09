@@ -38,14 +38,19 @@
   </prerequisites>
 
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/maven/shared/trunk/maven-jarsigner</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/maven/shared/trunk/maven-jarsigner</developerConnection>
-    <url>http://svn.apache.org/viewvc/maven/shared/trunk/maven-jarsigner</url>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/maven-jarsigner.git</connection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/maven-jarsigner.git</developerConnection>
+    <url>https://github.com/apache/maven-jarsigner/tree/${project.scm.tag}</url>
+    <tag>HEAD</tag>
   </scm>
   <issueManagement>
     <system>jira</system>
     <url>https://jira.codehaus.org/browse/MSHARED/component/12326450</url>
   </issueManagement>
+  <ciManagement>
+    <system>Jenkins</system>
+    <url>https://builds.apache.org/job/maven-box/job/maven-jarsigner/</url>
+  </ciManagement>
   <distributionManagement>
     <site>
       <id>apache.website</id>
