@@ -33,10 +33,6 @@
   <name>Apache Maven Jarsigner</name>
   <description>A component to assist in signing jars.</description>
 
-  <prerequisites>
-    <maven>${mavenVersion}</maven>
-  </prerequisites>
-
   <scm>
     <connection>scm:git:https://gitbox.apache.org/repos/asf/maven-jarsigner.git</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/maven-jarsigner.git</developerConnection>
