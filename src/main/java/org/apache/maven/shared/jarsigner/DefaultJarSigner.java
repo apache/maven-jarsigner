@@ -28,8 +28,7 @@ import org.codehaus.plexus.component.annotations.Component;
 /**
  * Default implementation of component {@link JarSigner}.
  *
- * @author tchemit <chemit@codelutin.com>
- * @version $Id$
+ * @author Tony Chemit
  * @since 1.0
  */
 @Component( role = JarSigner.class, hint = "default" )

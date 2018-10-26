@@ -24,8 +24,7 @@ import java.io.File;
 /**
  * Specifies the parameters used to control a jar signer sign operation invocation.
  *
- * @author tchemit <chemit@codelutin.com>
- * @version $Id$
+ * @author Tony Chemit
  * @since 1.0
  */
 public class JarSignerSignRequest

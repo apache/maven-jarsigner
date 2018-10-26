@@ -24,8 +24,7 @@ import org.apache.maven.shared.utils.cli.javatool.JavaTool;
 /**
  * Provides a facade to invoke JarSigner tool.
  *
- * @author tchemit <chemit@codelutin.com>
- * @version $Id$
+ * @author Tony Chemit
  * @since 1.0
  */
 public interface JarSigner

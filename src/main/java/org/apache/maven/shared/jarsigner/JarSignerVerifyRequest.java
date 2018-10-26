@@ -22,8 +22,7 @@ package org.apache.maven.shared.jarsigner;
 /**
  * Specifies the parameters used to control a jar signer verify operation invocation.
  *
- * @author tchemit <chemit@codelutin.com>
- * @version $Id$
+ * @author Tony Chemit
  * @since 1.0
  */
 public class JarSignerVerifyRequest

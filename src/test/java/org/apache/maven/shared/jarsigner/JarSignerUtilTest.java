@@ -29,8 +29,7 @@ import java.util.jar.Manifest;
 /**
  * Created on 11/8/13.
  *
- * @author Tony Chemit <chemit@codelutin.com>
- * @version $Id$
+ * @author Tony Chemit
  * @since 1.1
  */
 public class JarSignerUtilTest

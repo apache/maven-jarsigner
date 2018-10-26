@@ -31,8 +31,7 @@ import java.io.IOException;
 /**
  * To build the command line for a given {@link JarSignerRequest}.
  *
- * @author tchemit <chemit@codelutin.com>
- * @version $Id$
+ * @author Tony Chemit
  * @since 1.0
  */
 public class JarSignerCommandLineBuilder

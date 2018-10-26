@@ -26,8 +26,7 @@ import java.io.File;
 /**
  * Specifies the commons parameters used to control a jar signer invocation.
  *
- * @author tchemit <chemit@codelutin.com>
- * @version $Id$
+ * @author Tony Chemit
  * @since 1.0
  */
 public abstract class AbstractJarSignerRequest

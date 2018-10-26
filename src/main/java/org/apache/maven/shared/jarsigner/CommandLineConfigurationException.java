@@ -22,8 +22,7 @@ package org.apache.maven.shared.jarsigner;
 /**
  * Signals an error during the construction of the command line used to invoke jar signer.
  *
- * @author tchemit <chemit@codelutin.com>
- * @version $Id$
+ * @author Tony Chemit
  * @since 1.0
  */
 public class CommandLineConfigurationException

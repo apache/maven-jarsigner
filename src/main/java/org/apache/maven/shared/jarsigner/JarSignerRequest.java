@@ -26,8 +26,7 @@ import java.io.File;
 /**
  * Specifies the common parameters used to control a JarSigner tool invocation.
  *
- * @author tchemit <chemit@codelutin.com>
- * @version $Id$
+ * @author Tony Chemit
  * @since 1.0
  */
 public interface JarSignerRequest
@@ -113,8 +112,9 @@ public interface JarSignerRequest
 
     /**
      * Gets the value of the {@code archive} field.
-     * <p/>
+     * <p>
      * The archive field is in fact the file on which the jarsigner request will be executed.
+     * </p>
      *
      * @return the value of the {@code archive} field.
      */
