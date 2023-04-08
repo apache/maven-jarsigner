@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   Licensed to the Apache Software Foundation (ASF) under one
   or more contributor license agreements.  See the NOTICE file
@@ -23,7 +23,7 @@
   <parent>
     <groupId>org.apache.maven.shared</groupId>
     <artifactId>maven-shared-components</artifactId>
-    <version>34</version>
+    <version>39</version>
     <relativePath />
   </parent>
 
@@ -36,8 +36,8 @@
   <scm>
     <connection>scm:git:https://gitbox.apache.org/repos/asf/maven-jarsigner.git</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/maven-jarsigner.git</developerConnection>
-    <url>https://github.com/apache/maven-jarsigner/tree/${project.scm.tag}</url>
     <tag>HEAD</tag>
+    <url>https://github.com/apache/maven-jarsigner/tree/${project.scm.tag}</url>
   </scm>
   <issueManagement>
     <system>jira</system>
@@ -56,8 +56,7 @@
 
   <properties>
     <surefire.version>2.21.0</surefire.version>
-    <mavenVersion>3.0</mavenVersion>
-    <javaVersion>7</javaVersion>
+    <mavenVersion>3.2.5</mavenVersion>
     <project.build.outputTimestamp>2020-04-04T09:03:59Z</project.build.outputTimestamp>
   </properties>
 
@@ -65,12 +64,13 @@
     <dependency>
       <groupId>org.apache.maven.shared</groupId>
       <artifactId>maven-shared-utils</artifactId>
-      <version>3.2.1</version>
+      <version>3.3.4</version>
     </dependency>
 
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-component-annotations</artifactId>
+      <version>2.1.1</version>
     </dependency>
 
     <dependency>
@@ -109,7 +109,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-jxr-plugin</artifactId>
-          <version>3.0.0</version>
+          <version>3.3.0</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -117,6 +117,7 @@
       <plugin>
         <groupId>org.codehaus.plexus</groupId>
         <artifactId>plexus-component-metadata</artifactId>
+        <version>2.1.1</version>
         <executions>
           <execution>
             <id>create-component-descriptor</id>

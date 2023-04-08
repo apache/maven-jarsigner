@@ -1,3 +1,21 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 package org.apache.maven.shared.jarsigner;
 
 /*
@@ -27,9 +45,7 @@ import java.io.File;
  * @author Tony Chemit
  * @since 1.0
  */
-public class JarSignerSignRequest
-    extends AbstractJarSignerRequest
-{
+public class JarSignerSignRequest extends AbstractJarSignerRequest {
 
     /**
      * See <a href="http://docs.oracle.com/javase/6/docs/technotes/tools/windows/jarsigner.html#Options">options</a>.
@@ -58,70 +74,59 @@ public class JarSignerSignRequest
 
     /**
      * Location of the extra certchain file to be used during signing.
-     * 
+     *
      * See <a href="http://docs.oracle.com/javase/7/docs/technotes/tools/windows/jarsigner.html#Options">options</a>.
      * @since 3.0.0
      */
     protected File certchain;
 
-    public String getKeypass()
-    {
+    public String getKeypass() {
         return keypass;
     }
 
-    public String getSigfile()
-    {
+    public String getSigfile() {
         return sigfile;
     }
 
-    public String getTsaLocation()
-    {
+    public String getTsaLocation() {
         return tsaLocation;
     }
 
-    public String getTsaAlias()
-    {
+    public String getTsaAlias() {
         return tsaAlias;
     }
 
-    public void setKeypass( String keypass )
-    {
+    public void setKeypass(String keypass) {
         this.keypass = keypass;
     }
 
-    public void setSigfile( String sigfile )
-    {
+    public void setSigfile(String sigfile) {
         this.sigfile = sigfile;
     }
 
-    public void setTsaLocation( String tsaLocation )
-    {
+    public void setTsaLocation(String tsaLocation) {
         this.tsaLocation = tsaLocation;
     }
 
-    public void setTsaAlias( String tsaAlias )
-    {
+    public void setTsaAlias(String tsaAlias) {
         this.tsaAlias = tsaAlias;
     }
 
-    public File getSignedjar()
-    {
+    public File getSignedjar() {
         return signedjar;
     }
 
-    public void setSignedjar( File signedjar )
-    {
+    public void setSignedjar(File signedjar) {
         this.signedjar = signedjar;
     }
 
     /**
      * Sets certchain to be used.
-     * 
+     *
      * @param certchain Cert Chain file path or {@code null} to remove the option
      * @since 3.0.0
      */
-    public void setCertchain( File certchain )
-    {
+    public void setCertchain(File certchain) {
         this.certchain = certchain;
     }
 
@@ -129,8 +134,7 @@ public class JarSignerSignRequest
      * Get certificate chain.
      * @return Path to the certificate chain file or {@code null} if undefined
      */
-    public File getCertchain()
-    {
+    public File getCertchain() {
         return certchain;
     }
 }

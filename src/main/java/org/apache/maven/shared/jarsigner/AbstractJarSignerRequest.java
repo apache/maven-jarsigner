@@ -1,3 +1,21 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 package org.apache.maven.shared.jarsigner;
 
 /*
@@ -19,9 +37,9 @@ package org.apache.maven.shared.jarsigner;
  * under the License.
  */
 
-import org.apache.maven.shared.utils.cli.javatool.AbstractJavaToolRequest;
-
 import java.io.File;
+
+import org.apache.maven.shared.utils.cli.javatool.AbstractJavaToolRequest;
 
 /**
  * Specifies the commons parameters used to control a jar signer invocation.
@@ -29,10 +47,7 @@ import java.io.File;
  * @author Tony Chemit
  * @since 1.0
  */
-public abstract class AbstractJarSignerRequest
-    extends AbstractJavaToolRequest
-    implements JarSignerRequest
-{
+public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest implements JarSignerRequest {
     /**
      * See <a href="http://docs.oracle.com/javase/6/docs/technotes/tools/windows/jarsigner.html#Options">options</a>.
      */
@@ -102,208 +117,182 @@ public abstract class AbstractJarSignerRequest
     /**
      * {@inheritDoc}
      */
-    public boolean isVerbose()
-    {
+    public boolean isVerbose() {
         return verbose;
     }
 
     /**
      * {@inheritDoc}
      */
-    public String getKeystore()
-    {
+    public String getKeystore() {
         return keystore;
     }
 
     /**
      * {@inheritDoc}
      */
-    public String getStoretype()
-    {
+    public String getStoretype() {
         return storetype;
     }
 
     /**
      * {@inheritDoc}
      */
-    public String getStorepass()
-    {
+    public String getStorepass() {
         return storepass;
     }
 
     /**
      * {@inheritDoc}
      */
-    public String getAlias()
-    {
+    public String getAlias() {
         return alias;
     }
 
     /**
      * {@inheritDoc}
      */
-    public String getProviderName()
-    {
+    public String getProviderName() {
         return providerName;
     }
 
     /**
      * {@inheritDoc}
      */
-    public String getProviderClass()
-    {
+    public String getProviderClass() {
         return providerClass;
     }
 
     /**
      * {@inheritDoc}
      */
-    public String getProviderArg()
-    {
+    public String getProviderArg() {
         return providerArg;
     }
 
     /**
      * {@inheritDoc}
      */
-    public String getMaxMemory()
-    {
+    public String getMaxMemory() {
         return maxMemory;
     }
 
     /**
      * {@inheritDoc}
      */
-    public String[] getArguments()
-    {
+    public String[] getArguments() {
         return arguments;
     }
 
     /**
      * {@inheritDoc}
      */
-    public File getWorkingDirectory()
-    {
+    public File getWorkingDirectory() {
         return workingDirectory;
     }
 
     /**
      * {@inheritDoc}
      */
-    public File getArchive()
-    {
+    public File getArchive() {
         return archive;
     }
 
     /**
      * {@inheritDoc}
      */
-    public boolean isProtectedAuthenticationPath()
-    {
+    public boolean isProtectedAuthenticationPath() {
         return protectedAuthenticationPath;
     }
 
     /**
      * {@inheritDoc}
      */
-    public void setVerbose( boolean verbose )
-    {
+    public void setVerbose(boolean verbose) {
         this.verbose = verbose;
     }
 
     /**
      * {@inheritDoc}
      */
-    public void setKeystore( String keystore )
-    {
+    public void setKeystore(String keystore) {
         this.keystore = keystore;
     }
 
     /**
      * {@inheritDoc}
      */
-    public void setStoretype( String storetype )
-    {
+    public void setStoretype(String storetype) {
         this.storetype = storetype;
     }
 
     /**
      * {@inheritDoc}
      */
-    public void setStorepass( String storepass )
-    {
+    public void setStorepass(String storepass) {
         this.storepass = storepass;
     }
 
     /**
      * {@inheritDoc}
      */
-    public void setProviderName( String providerName )
-    {
+    public void setProviderName(String providerName) {
         this.providerName = providerName;
     }
 
     /**
      * {@inheritDoc}
      */
-    public void setProviderClass( String providerClass )
-    {
+    public void setProviderClass(String providerClass) {
         this.providerClass = providerClass;
     }
 
     /**
      * {@inheritDoc}
      */
-    public void setProviderArg( String providerArg )
-    {
+    public void setProviderArg(String providerArg) {
         this.providerArg = providerArg;
     }
 
     /**
      * {@inheritDoc}
      */
-    public void setAlias( String alias )
-    {
+    public void setAlias(String alias) {
         this.alias = alias;
     }
 
     /**
      * {@inheritDoc}
      */
-    public void setMaxMemory( String maxMemory )
-    {
+    public void setMaxMemory(String maxMemory) {
         this.maxMemory = maxMemory;
     }
 
     /**
      * {@inheritDoc}
      */
-    public void setArguments( String... arguments )
-    {
+    public void setArguments(String... arguments) {
         this.arguments = arguments;
     }
 
     /**
      * {@inheritDoc}
      */
-    public void setWorkingDirectory( File workingDirectory )
-    {
+    public void setWorkingDirectory(File workingDirectory) {
         this.workingDirectory = workingDirectory;
     }
 
     /**
      * {@inheritDoc}
      */
-    public void setArchive( File archive )
-    {
+    public void setArchive(File archive) {
         this.archive = archive;
     }
 
     /**
      * {@inheritDoc}
      */
-    public void setProtectedAuthenticationPath( boolean protect )
-    {
+    public void setProtectedAuthenticationPath(boolean protect) {
         this.protectedAuthenticationPath = protect;
     }
 }
