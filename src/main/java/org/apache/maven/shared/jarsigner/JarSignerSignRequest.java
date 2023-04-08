@@ -18,7 +18,6 @@
  */
 package org.apache.maven.shared.jarsigner;
 
-
 import java.io.File;
 
 /**

@@ -18,7 +18,6 @@
  */
 package org.apache.maven.shared.jarsigner;
 
-
 import java.io.File;
 
 import org.apache.maven.shared.utils.cli.javatool.AbstractJavaToolRequest;

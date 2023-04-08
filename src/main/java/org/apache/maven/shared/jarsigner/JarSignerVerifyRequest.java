@@ -18,7 +18,6 @@
  */
 package org.apache.maven.shared.jarsigner;
 
-
 /**
  * Specifies the parameters used to control a jar signer verify operation invocation.
  *
