@@ -66,14 +66,14 @@ public class JarSignerCommandLineBuilder
         }
 
         String keystore = request.getKeystore();
-        if ( !StringUtils.isEmpty( keystore ) )
+        if ( !(keystore == null || keystore.isEmpty()) )
         {
             cli.createArg().setValue( "-keystore" );
             cli.createArg().setValue( keystore );
         }
 
         String storepass = request.getStorepass();
-        if ( !StringUtils.isEmpty( storepass ) )
+        if ( !(storepass == null || storepass.isEmpty()) )
         {
             cli.createArg().setValue( "-storepass" );
             Arg arg = cli.createArg();
@@ -82,28 +82,28 @@ public class JarSignerCommandLineBuilder
         }
 
         String storetype = request.getStoretype();
-        if ( !StringUtils.isEmpty( storetype ) )
+        if ( !(storetype == null || storetype.isEmpty()) )
         {
             cli.createArg().setValue( "-storetype" );
             cli.createArg().setValue( storetype );
         }
 
         String providerName = request.getProviderName();
-        if ( !StringUtils.isEmpty( providerName ) )
+        if ( !(providerName == null || providerName.isEmpty()) )
         {
             cli.createArg().setValue( "-providerName" );
             cli.createArg().setValue( providerName );
         }
 
         String providerClass = request.getProviderClass();
-        if ( !StringUtils.isEmpty( providerClass ) )
+        if ( !(providerClass == null || providerClass.isEmpty()) )
         {
             cli.createArg().setValue( "-providerClass" );
             cli.createArg().setValue( providerClass );
         }
 
         String providerArg = request.getProviderArg();
-        if ( !StringUtils.isEmpty( providerArg ) )
+        if ( !(providerArg == null || providerArg.isEmpty()) )
         {
             cli.createArg().setValue( "-providerArg" );
             cli.createArg().setValue( providerArg );
@@ -115,7 +115,7 @@ public class JarSignerCommandLineBuilder
         }
 
         String maxMemory = request.getMaxMemory();
-        if ( StringUtils.isNotEmpty( maxMemory ) )
+        if ( maxMemory != null && !maxMemory.isEmpty() )
         {
             cli.createArg().setValue( "-J-Xmx" + maxMemory );
         }
@@ -139,7 +139,7 @@ public class JarSignerCommandLineBuilder
         cli.createArg().setFile( request.getArchive() );
 
         String alias = request.getAlias();
-        if ( !StringUtils.isEmpty( alias ) )
+        if ( !(alias == null || alias.isEmpty()) )
         {
             cli.createArg().setValue( alias );
         }
@@ -175,7 +175,7 @@ public class JarSignerCommandLineBuilder
     {
 
         String keypass = request.getKeypass();
-        if ( !StringUtils.isEmpty( keypass ) )
+        if ( !(keypass == null || keypass.isEmpty()) )
         {
             cli.createArg().setValue( "-keypass" );
             Arg arg = cli.createArg();
@@ -184,7 +184,7 @@ public class JarSignerCommandLineBuilder
         }
 
         String sigfile = request.getSigfile();
-        if ( !StringUtils.isEmpty( sigfile ) )
+        if ( !(sigfile == null || sigfile.isEmpty()) )
         {
             cli.createArg().setValue( "-sigfile" );
             cli.createArg().setValue( sigfile );
