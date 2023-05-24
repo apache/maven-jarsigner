@@ -1,5 +1,3 @@
-package org.apache.maven.shared.jarsigner;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -9,7 +7,7 @@ package org.apache.maven.shared.jarsigner;
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -18,6 +16,7 @@ package org.apache.maven.shared.jarsigner;
  * specific language governing permissions and limitations
  * under the License.
  */
+package org.apache.maven.shared.jarsigner;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,24 +24,18 @@ import java.io.IOException;
 import org.apache.maven.shared.utils.io.FileUtils;
 import org.codehaus.plexus.PlexusTestCase;
 
-public abstract class AbstractJarSignerTest
-    extends PlexusTestCase
-{
+public abstract class AbstractJarSignerTest extends PlexusTestCase {
 
-    protected File prepareTestJar( String filename )
-        throws IOException
-    {
-        File file = new File( "src/test", filename );
-        File target = new File( "target", filename );
+    protected File prepareTestJar(String filename) throws IOException {
+        File file = new File("src/test", filename);
+        File target = new File("target", filename);
 
-        if ( target.exists() )
-        {
-            FileUtils.forceDelete( target );
+        if (target.exists()) {
+            FileUtils.forceDelete(target);
         }
 
-        FileUtils.copyFile( file, target );
+        FileUtils.copyFile(file, target);
 
         return target;
     }
-
 }

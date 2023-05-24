@@ -1,5 +1,3 @@
-package org.apache.maven.shared.jarsigner;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -9,7 +7,7 @@ package org.apache.maven.shared.jarsigner;
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -18,6 +16,7 @@ package org.apache.maven.shared.jarsigner;
  * specific language governing permissions and limitations
  * under the License.
  */
+package org.apache.maven.shared.jarsigner;
 
 /**
  * Specifies the parameters used to control a jar signer verify operation invocation.
@@ -25,21 +24,17 @@ package org.apache.maven.shared.jarsigner;
  * @author Tony Chemit
  * @since 1.0
  */
-public class JarSignerVerifyRequest
-    extends AbstractJarSignerRequest
-{
+public class JarSignerVerifyRequest extends AbstractJarSignerRequest {
     /**
      * See <a href="http://docs.oracle.com/javase/6/docs/technotes/tools/windows/jarsigner.html#Options">options</a>.
      */
     private boolean certs;
 
-    public boolean isCerts()
-    {
+    public boolean isCerts() {
         return certs;
     }
 
-    public void setCerts( boolean certs )
-    {
+    public void setCerts(boolean certs) {
         this.certs = certs;
     }
 }

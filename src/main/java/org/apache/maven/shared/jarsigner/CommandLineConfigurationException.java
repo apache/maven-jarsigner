@@ -1,5 +1,3 @@
-package org.apache.maven.shared.jarsigner;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -9,7 +7,7 @@ package org.apache.maven.shared.jarsigner;
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -18,6 +16,7 @@ package org.apache.maven.shared.jarsigner;
  * specific language governing permissions and limitations
  * under the License.
  */
+package org.apache.maven.shared.jarsigner;
 
 /**
  * Signals an error during the construction of the command line used to invoke jar signer.
@@ -25,9 +24,7 @@ package org.apache.maven.shared.jarsigner;
  * @author Tony Chemit
  * @since 1.0
  */
-public class CommandLineConfigurationException
-    extends Exception
-{
+public class CommandLineConfigurationException extends Exception {
 
     private static final long serialVersionUID = 1L;
 
@@ -37,9 +34,8 @@ public class CommandLineConfigurationException
      * @param message The detail message for this exception, may be <code>null</code>.
      * @param cause   The nested exception, may be <code>null</code>.
      */
-    public CommandLineConfigurationException( String message, Throwable cause )
-    {
-        super( message, cause );
+    public CommandLineConfigurationException(String message, Throwable cause) {
+        super(message, cause);
     }
 
     /**
@@ -47,10 +43,7 @@ public class CommandLineConfigurationException
      *
      * @param message The detail message for this exception, may be <code>null</code>.
      */
-    public CommandLineConfigurationException( String message )
-    {
-        super( message );
+    public CommandLineConfigurationException(String message) {
+        super(message);
     }
-
 }
-

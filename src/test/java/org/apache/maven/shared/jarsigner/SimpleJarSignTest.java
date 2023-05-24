@@ -1,5 +1,3 @@
-package org.apache.maven.shared.jarsigner;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -18,61 +16,54 @@ package org.apache.maven.shared.jarsigner;
  * specific language governing permissions and limitations
  * under the License.
  */
-
-import org.apache.maven.shared.utils.cli.javatool.JavaToolResult;
+package org.apache.maven.shared.jarsigner;
 
 import java.io.File;
+
+import org.apache.maven.shared.utils.cli.javatool.JavaToolResult;
 
 /**
  * @author Olivier Lamy
  */
-public class SimpleJarSignTest
-    extends AbstractJarSignerTest
-{
+public class SimpleJarSignTest extends AbstractJarSignerTest {
     private JarSigner jarSigner;
 
-    public void setUp()
-        throws Exception
-    {
+    public void setUp() throws Exception {
         super.setUp();
 
-        jarSigner = (JarSigner) lookup( JarSigner.class.getName() );
+        jarSigner = (JarSigner) lookup(JarSigner.class.getName());
     }
 
-    public void testSimpleSign()
-        throws Exception
-    {
-        File target = prepareTestJar( "simple.jar" );
+    public void testSimpleSign() throws Exception {
+        File target = prepareTestJar("simple.jar");
 
         JarSignerSignRequest jarSignerRequest = new JarSignerSignRequest();
-        jarSignerRequest.setArchive( target );
-        jarSignerRequest.setKeystore( "src/test/keystore" );
-        jarSignerRequest.setVerbose( true );
-        jarSignerRequest.setAlias( "foo_alias" );
-        jarSignerRequest.setKeypass( "key-passwd" );
-        jarSignerRequest.setStorepass( "changeit" );
-        jarSignerRequest.setSignedjar( new File( "target/ssimple.jar" ) );
+        jarSignerRequest.setArchive(target);
+        jarSignerRequest.setKeystore("src/test/keystore");
+        jarSignerRequest.setVerbose(true);
+        jarSignerRequest.setAlias("foo_alias");
+        jarSignerRequest.setKeypass("key-passwd");
+        jarSignerRequest.setStorepass("changeit");
+        jarSignerRequest.setSignedjar(new File("target/ssimple.jar"));
 
-        JavaToolResult jarSignerResult = jarSigner.execute( jarSignerRequest );
+        JavaToolResult jarSignerResult = jarSigner.execute(jarSignerRequest);
 
-        assertEquals( "not exit code 0 " + jarSignerResult.getExecutionException(), 0, jarSignerResult.getExitCode() );
+        assertEquals("not exit code 0 " + jarSignerResult.getExecutionException(), 0, jarSignerResult.getExitCode());
     }
 
-    public void testSimpleSignAndVerify()
-        throws Exception
-    {
+    public void testSimpleSignAndVerify() throws Exception {
         testSimpleSign();
 
         JarSignerVerifyRequest request = new JarSignerVerifyRequest();
-        request.setCerts( true );
-        request.setVerbose( true );
-        request.setArchive( new File( "target/ssimple.jar" ) );
-        request.setKeystore( "src/test/keystore" );
-        request.setAlias( "foo_alias" );
-        request.setStorepass( "changeit" );
+        request.setCerts(true);
+        request.setVerbose(true);
+        request.setArchive(new File("target/ssimple.jar"));
+        request.setKeystore("src/test/keystore");
+        request.setAlias("foo_alias");
+        request.setStorepass("changeit");
 
-        JavaToolResult jarSignerResult = jarSigner.execute( request );
+        JavaToolResult jarSignerResult = jarSigner.execute(request);
 
-        assertEquals( "not exit code 0 " + jarSignerResult.getExecutionException(), 0, jarSignerResult.getExitCode() );
+        assertEquals("not exit code 0 " + jarSignerResult.getExecutionException(), 0, jarSignerResult.getExitCode());
     }
 }
