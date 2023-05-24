@@ -66,14 +66,14 @@ public class JarSignerCommandLineBuilder
         }
 
         String keystore = request.getKeystore();
-        if ( !(keystore == null || keystore.isEmpty()) )
+        if ( !( keystore == null || keystore.isEmpty() ) )
         {
             cli.createArg().setValue( "-keystore" );
             cli.createArg().setValue( keystore );
         }
 
         String storepass = request.getStorepass();
-        if ( !(storepass == null || storepass.isEmpty()) )
+        if ( !( storepass == null || storepass.isEmpty() ) )
         {
             cli.createArg().setValue( "-storepass" );
             Arg arg = cli.createArg();
@@ -82,28 +82,28 @@ public class JarSignerCommandLineBuilder
         }
 
         String storetype = request.getStoretype();
-        if ( !(storetype == null || storetype.isEmpty()) )
+        if ( !( storetype == null || storetype.isEmpty() ) )
         {
             cli.createArg().setValue( "-storetype" );
             cli.createArg().setValue( storetype );
         }
 
         String providerName = request.getProviderName();
-        if ( !(providerName == null || providerName.isEmpty()) )
+        if ( !( providerName == null || providerName.isEmpty() ) )
         {
             cli.createArg().setValue( "-providerName" );
             cli.createArg().setValue( providerName );
         }
 
         String providerClass = request.getProviderClass();
-        if ( !(providerClass == null || providerClass.isEmpty()) )
+        if ( !( providerClass == null || providerClass.isEmpty() ) )
         {
             cli.createArg().setValue( "-providerClass" );
             cli.createArg().setValue( providerClass );
         }
 
         String providerArg = request.getProviderArg();
-        if ( !(providerArg == null || providerArg.isEmpty()) )
+        if ( !( providerArg == null || providerArg.isEmpty() ) )
         {
             cli.createArg().setValue( "-providerArg" );
             cli.createArg().setValue( providerArg );
@@ -139,7 +139,7 @@ public class JarSignerCommandLineBuilder
         cli.createArg().setFile( request.getArchive() );
 
         String alias = request.getAlias();
-        if ( !(alias == null || alias.isEmpty()) )
+        if ( !( alias == null || alias.isEmpty() ) )
         {
             cli.createArg().setValue( alias );
         }
@@ -175,7 +175,7 @@ public class JarSignerCommandLineBuilder
     {
 
         String keypass = request.getKeypass();
-        if ( !(keypass == null || keypass.isEmpty()) )
+        if ( !( keypass == null || keypass.isEmpty() ) )
         {
             cli.createArg().setValue( "-keypass" );
             Arg arg = cli.createArg();
@@ -184,7 +184,7 @@ public class JarSignerCommandLineBuilder
         }
 
         String sigfile = request.getSigfile();
-        if ( !(sigfile == null || sigfile.isEmpty()) )
+        if ( !( sigfile == null || sigfile.isEmpty() ) )
         {
             cli.createArg().setValue( "-sigfile" );
             cli.createArg().setValue( sigfile );
