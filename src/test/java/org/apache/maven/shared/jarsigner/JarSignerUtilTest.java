@@ -1,5 +1,3 @@
-package org.apache.maven.shared.jarsigner;
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -9,7 +7,7 @@ package org.apache.maven.shared.jarsigner;
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
  *
- *  http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -18,6 +16,7 @@ package org.apache.maven.shared.jarsigner;
  * specific language governing permissions and limitations
  * under the License.
  */
+package org.apache.maven.shared.jarsigner;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,48 +31,41 @@ import java.util.jar.Manifest;
  * @author Tony Chemit
  * @since 1.1
  */
-public class JarSignerUtilTest
-    extends AbstractJarSignerTest
-{
+public class JarSignerUtilTest extends AbstractJarSignerTest {
 
     // Fix MSHARED-277
-    public void testUnsignArchive()
-        throws Exception
-    {
+    public void testUnsignArchive() throws Exception {
 
-        File target = prepareTestJar( "javax.persistence_2.0.5.v201212031355.jar" );
+        File target = prepareTestJar("javax.persistence_2.0.5.v201212031355.jar");
 
-        assertTrue( JarSignerUtil.isArchiveSigned( target ) );
+        assertTrue(JarSignerUtil.isArchiveSigned(target));
 
         // check that manifest contains some digest attributes
-        Manifest originalManifest = readManifest( target );
-        assertTrue( containsDigest( originalManifest ) );
+        Manifest originalManifest = readManifest(target);
+        assertTrue(containsDigest(originalManifest));
 
-        Manifest originalCleanManifest = JarSignerUtil.buildUnsignedManifest( originalManifest );
-        assertFalse( containsDigest( originalCleanManifest ) );
+        Manifest originalCleanManifest = JarSignerUtil.buildUnsignedManifest(originalManifest);
+        assertFalse(containsDigest(originalCleanManifest));
 
-        assertTrue( originalCleanManifest.equals( JarSignerUtil.buildUnsignedManifest( originalCleanManifest ) ) );
+        assertTrue(originalCleanManifest.equals(JarSignerUtil.buildUnsignedManifest(originalCleanManifest)));
 
-        JarSignerUtil.unsignArchive( target );
+        JarSignerUtil.unsignArchive(target);
 
-        assertFalse( JarSignerUtil.isArchiveSigned( target ) );
+        assertFalse(JarSignerUtil.isArchiveSigned(target));
 
         // check that manifest has no digest entry
         // see https://jira.codehaus.org/browse/MSHARED-314
-        Manifest manifest = readManifest( target );
+        Manifest manifest = readManifest(target);
 
-        Manifest cleanManifest = JarSignerUtil.buildUnsignedManifest( manifest );
-        assertFalse( containsDigest( cleanManifest ) );
+        Manifest cleanManifest = JarSignerUtil.buildUnsignedManifest(manifest);
+        assertFalse(containsDigest(cleanManifest));
 
-        assertTrue( manifest.equals( cleanManifest ) );
-        assertTrue( manifest.equals( originalCleanManifest ) );
-
+        assertTrue(manifest.equals(cleanManifest));
+        assertTrue(manifest.equals(originalCleanManifest));
     }
 
-    private Manifest readManifest( File file )
-        throws IOException
-    {
-        JarFile jarFile = new JarFile( file );
+    private Manifest readManifest(File file) throws IOException {
+        JarFile jarFile = new JarFile(file);
 
         Manifest manifest = jarFile.getManifest();
 
@@ -82,17 +74,13 @@ public class JarSignerUtilTest
         return manifest;
     }
 
-    private boolean containsDigest( Manifest manifest )
-    {
-        for ( Map.Entry<String, Attributes> entry : manifest.getEntries().entrySet() )
-        {
+    private boolean containsDigest(Manifest manifest) {
+        for (Map.Entry<String, Attributes> entry : manifest.getEntries().entrySet()) {
             Attributes attr = entry.getValue();
 
-            for ( Map.Entry<Object, Object> objectEntry : attr.entrySet() )
-            {
-                String attributeKey = String.valueOf( objectEntry.getKey() );
-                if ( attributeKey.endsWith( "-Digest" ) )
-                {
+            for (Map.Entry<Object, Object> objectEntry : attr.entrySet()) {
+                String attributeKey = String.valueOf(objectEntry.getKey());
+                if (attributeKey.endsWith("-Digest")) {
                     return true;
                 }
             }
