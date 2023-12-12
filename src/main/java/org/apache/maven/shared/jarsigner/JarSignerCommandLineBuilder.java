@@ -173,6 +173,18 @@ public class JarSignerCommandLineBuilder {
             cli.createArg().setValue(tsaAlias);
         }
 
+        String tsapolicyid = request.getTsapolicyid();
+        if (StringUtils.isNotBlank(tsapolicyid)) {
+            cli.createArg().setValue("-tsapolicyid");
+            cli.createArg().setValue(tsapolicyid);
+        }
+
+        String tsadigestalg = request.getTsadigestalg();
+        if (StringUtils.isNotBlank(tsadigestalg)) {
+            cli.createArg().setValue("-tsadigestalg");
+            cli.createArg().setValue(tsadigestalg);
+        }
+
         File signedjar = request.getSignedjar();
         if (signedjar != null) {
             cli.createArg().setValue("-signedjar");
