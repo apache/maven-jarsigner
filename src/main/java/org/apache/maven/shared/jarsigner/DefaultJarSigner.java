@@ -23,6 +23,7 @@ import org.apache.maven.shared.utils.cli.StreamConsumer;
 import org.apache.maven.shared.utils.cli.javatool.AbstractJavaTool;
 import org.apache.maven.shared.utils.cli.javatool.JavaToolException;
 import org.codehaus.plexus.component.annotations.Component;
+import org.slf4j.LoggerFactory;
 
 /**
  * Default implementation of component {@link JarSigner}.
@@ -40,7 +41,7 @@ public class DefaultJarSigner extends AbstractJavaTool<JarSignerRequest> impleme
     @Override
     protected Commandline createCommandLine(JarSignerRequest request, String javaToolFile) throws JavaToolException {
         JarSignerCommandLineBuilder cliBuilder = new JarSignerCommandLineBuilder();
-        cliBuilder.setLogger(getLogger());
+        cliBuilder.setLogger(LoggerFactory.getLogger(this.getClass()));
         cliBuilder.setJarSignerFile(javaToolFile);
         try {
             Commandline cli = cliBuilder.build(request);
