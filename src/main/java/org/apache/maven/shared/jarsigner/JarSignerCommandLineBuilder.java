@@ -24,8 +24,8 @@ import java.io.IOException;
 import org.apache.maven.shared.utils.StringUtils;
 import org.apache.maven.shared.utils.cli.Arg;
 import org.apache.maven.shared.utils.cli.Commandline;
-import org.codehaus.plexus.logging.Logger;
-import org.codehaus.plexus.logging.console.ConsoleLogger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * To build the command line for a given {@link JarSignerRequest}.
@@ -34,9 +34,8 @@ import org.codehaus.plexus.logging.console.ConsoleLogger;
  * @since 1.0
  */
 public class JarSignerCommandLineBuilder {
-    private static final Logger DEFAULT_LOGGER = new ConsoleLogger(0, JarSignerCommandLineBuilder.class.getName());
 
-    private Logger logger = DEFAULT_LOGGER;
+    private Logger logger = LoggerFactory.getLogger(JarSignerCommandLineBuilder.class);
 
     private String jarSignerFile;
 
