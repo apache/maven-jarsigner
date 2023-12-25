@@ -22,9 +22,9 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.maven.shared.utils.io.FileUtils;
-import org.codehaus.plexus.PlexusTestCase;
+import org.eclipse.sisu.launch.InjectedTest;
 
-public abstract class AbstractJarSignerTest extends PlexusTestCase {
+public abstract class AbstractJarSignerTest extends InjectedTest {
 
     protected File prepareTestJar(String filename) throws IOException {
         File file = new File("src/test", filename);

@@ -18,11 +18,12 @@
  */
 package org.apache.maven.shared.jarsigner;
 
+import javax.inject.Named;
+
 import org.apache.maven.shared.utils.cli.Commandline;
 import org.apache.maven.shared.utils.cli.StreamConsumer;
 import org.apache.maven.shared.utils.cli.javatool.AbstractJavaTool;
 import org.apache.maven.shared.utils.cli.javatool.JavaToolException;
-import org.codehaus.plexus.component.annotations.Component;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -31,7 +32,7 @@ import org.slf4j.LoggerFactory;
  * @author Tony Chemit
  * @since 1.0
  */
-@Component(role = JarSigner.class, hint = "default")
+@Named
 public class DefaultJarSigner extends AbstractJavaTool<JarSignerRequest> implements JarSigner {
 
     public DefaultJarSigner() {
