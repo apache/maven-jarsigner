@@ -18,23 +18,24 @@
  */
 package org.apache.maven.shared.jarsigner;
 
+import javax.inject.Inject;
+
 import java.io.File;
 
 import org.apache.maven.shared.utils.cli.javatool.JavaToolResult;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Olivier Lamy
  */
-public class SimpleJarSignTest extends AbstractJarSignerTest {
+class SimpleJarSignTest extends AbstractJarSignerTest {
+    @Inject
     private JarSigner jarSigner;
 
-    public void setUp() throws Exception {
-        super.setUp();
-
-        jarSigner = (JarSigner) lookup(JarSigner.class.getName());
-    }
-
-    public void testSimpleSign() throws Exception {
+    @Test
+    void checkSimpleSign() throws Exception {
         File target = prepareTestJar("simple.jar");
 
         JarSignerSignRequest jarSignerRequest = new JarSignerSignRequest();
@@ -48,11 +49,12 @@ public class SimpleJarSignTest extends AbstractJarSignerTest {
 
         JavaToolResult jarSignerResult = jarSigner.execute(jarSignerRequest);
 
-        assertEquals("not exit code 0 " + jarSignerResult.getExecutionException(), 0, jarSignerResult.getExitCode());
+        assertEquals(0, jarSignerResult.getExitCode(), "not exit code 0 " + jarSignerResult.getExecutionException());
     }
 
-    public void testSimpleSignAndVerify() throws Exception {
-        testSimpleSign();
+    @Test
+    void simpleSignAndVerify() throws Exception {
+        checkSimpleSign();
 
         JarSignerVerifyRequest request = new JarSignerVerifyRequest();
         request.setCerts(true);
@@ -64,6 +66,6 @@ public class SimpleJarSignTest extends AbstractJarSignerTest {
 
         JavaToolResult jarSignerResult = jarSigner.execute(request);
 
-        assertEquals("not exit code 0 " + jarSignerResult.getExecutionException(), 0, jarSignerResult.getExitCode());
+        assertEquals(0, jarSignerResult.getExitCode(), "not exit code 0 " + jarSignerResult.getExecutionException());
     }
 }
