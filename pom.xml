@@ -55,7 +55,6 @@
   </distributionManagement>
 
   <properties>
-    <mavenVersion>3.2.5</mavenVersion>
     <slf4jVersion>1.7.36</slf4jVersion>
     <project.build.outputTimestamp>2020-04-04T09:03:59Z</project.build.outputTimestamp>
   </properties>
