@@ -25,6 +25,8 @@ import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -37,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  */
 public class JarSignerUtilTest extends AbstractJarSignerTest {
 
-    // Fix MSHARED-277
+    @Test
     public void testUnsignArchive() throws Exception {
 
         File target = prepareTestJar("javax.persistence_2.0.5.v201212031355.jar");
@@ -58,7 +60,7 @@ public class JarSignerUtilTest extends AbstractJarSignerTest {
         assertFalse(JarSignerUtil.isArchiveSigned(target));
 
         // check that manifest has no digest entry
-        // see https://jira.codehaus.org/browse/MSHARED-314
+        // see https://issues.apache.org/jira/browse/MSHARED-314
         Manifest manifest = readManifest(target);
 
         Manifest cleanManifest = JarSignerUtil.buildUnsignedManifest(manifest);
