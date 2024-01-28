@@ -56,6 +56,7 @@
 
   <properties>
     <mavenVersion>3.2.5</mavenVersion>
+    <slf4jVersion>1.7.36</slf4jVersion>
     <project.build.outputTimestamp>2020-04-04T09:03:59Z</project.build.outputTimestamp>
   </properties>
 
@@ -74,7 +75,13 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <version>1.7.36</version>
+      <version>${slf4jVersion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>${slf4jVersion}</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.eclipse.sisu</groupId>
