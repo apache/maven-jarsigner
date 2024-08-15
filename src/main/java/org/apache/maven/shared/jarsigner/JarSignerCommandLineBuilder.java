@@ -19,13 +19,11 @@
 package org.apache.maven.shared.jarsigner;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.apache.maven.shared.utils.StringUtils;
 import org.apache.maven.shared.utils.cli.Arg;
 import org.apache.maven.shared.utils.cli.Commandline;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * To build the command line for a given {@link JarSignerRequest}.
@@ -35,16 +33,11 @@ import org.slf4j.LoggerFactory;
  */
 public class JarSignerCommandLineBuilder {
 
-    private Logger logger = LoggerFactory.getLogger(JarSignerCommandLineBuilder.class);
-
     private String jarSignerFile;
 
     public Commandline build(JarSignerRequest request) throws CommandLineConfigurationException {
-        try {
-            checkRequiredState();
-        } catch (IOException e) {
-            throw new CommandLineConfigurationException(e.getMessage(), e);
-        }
+
+        checkRequiredState();
 
         Commandline cli = new Commandline();
 
@@ -126,21 +119,22 @@ public class JarSignerCommandLineBuilder {
         return cli;
     }
 
+    /**
+     * @deprecated logger is not used by this class
+     * @param logger a logger
+     */
+    @Deprecated
     public void setLogger(Logger logger) {
-        this.logger = logger;
+        // not used
     }
 
     public void setJarSignerFile(String jarSignerFile) {
         this.jarSignerFile = jarSignerFile;
     }
 
-    protected void checkRequiredState() throws IOException {
-        if (logger == null) {
-            throw new IllegalStateException("A logger instance is required.");
-        }
-
+    protected void checkRequiredState() throws CommandLineConfigurationException {
         if (jarSignerFile == null) {
-            throw new IllegalStateException("A jarSigner file is required.");
+            throw new CommandLineConfigurationException("A jarSigner file is required.");
         }
     }
 
@@ -197,7 +191,7 @@ public class JarSignerCommandLineBuilder {
         }
     }
 
-    protected void build(JarSignerVerifyRequest request, Commandline cli) throws CommandLineConfigurationException {
+    protected void build(JarSignerVerifyRequest request, Commandline cli) {
         cli.createArg(true).setValue("-verify");
 
         if (request.isCerts()) {

@@ -21,9 +21,9 @@ package org.apache.maven.shared.jarsigner;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Map;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
@@ -31,8 +31,9 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import org.apache.maven.shared.utils.io.FileUtils;
-import org.apache.maven.shared.utils.io.IOUtil;
+import org.apache.commons.io.IOUtils;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 /**
  * Useful methods.
@@ -56,7 +57,7 @@ public class JarSignerUtil {
     public static boolean isZipFile(final File file) {
         boolean result = false;
 
-        try (ZipInputStream zis = new ZipInputStream(new FileInputStream(file))) {
+        try (ZipInputStream zis = new ZipInputStream(Files.newInputStream(file.toPath()))) {
             result = zis.getNextEntry() != null;
         } catch (Exception e) {
             // ignore, will fail below
@@ -74,11 +75,11 @@ public class JarSignerUtil {
      */
     public static void unsignArchive(File jarFile) throws IOException {
 
-        File unsignedFile = new File(jarFile.getAbsolutePath() + ".unsigned");
+        Path unsignedPath = new File(jarFile.getAbsolutePath() + ".unsigned").toPath();
 
-        try (ZipInputStream zis = new ZipInputStream(new BufferedInputStream(new FileInputStream(jarFile)));
+        try (ZipInputStream zis = new ZipInputStream(new BufferedInputStream(Files.newInputStream(jarFile.toPath())));
                 ZipOutputStream zos =
-                        new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(unsignedFile)))) {
+                        new ZipOutputStream(new BufferedOutputStream(Files.newOutputStream(unsignedPath)))) {
             for (ZipEntry ze = zis.getNextEntry(); ze != null; ze = zis.getNextEntry()) {
                 if (isSignatureFile(ze.getName())) {
                     continue;
@@ -97,11 +98,10 @@ public class JarSignerUtil {
                     continue;
                 }
 
-                IOUtil.copy(zis, zos);
+                IOUtils.copy(zis, zos);
             }
         }
-
-        FileUtils.rename(unsignedFile, jarFile);
+        Files.move(unsignedPath, jarFile.toPath(), REPLACE_EXISTING);
     }
 
     /**
@@ -152,7 +152,7 @@ public class JarSignerUtil {
             throw new NullPointerException("jarFile");
         }
 
-        try (ZipInputStream in = new ZipInputStream(new BufferedInputStream(new FileInputStream(jarFile)))) {
+        try (ZipInputStream in = new ZipInputStream(new BufferedInputStream(Files.newInputStream(jarFile.toPath())))) {
             boolean signed = false;
 
             for (ZipEntry ze = in.getNextEntry(); ze != null; ze = in.getNextEntry()) {

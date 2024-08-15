@@ -20,22 +20,33 @@ package org.apache.maven.shared.jarsigner;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
-import org.apache.maven.shared.utils.io.FileUtils;
+import org.apache.commons.io.FileUtils;
 import org.eclipse.sisu.launch.InjectedTest;
 
 public abstract class AbstractJarSignerTest extends InjectedTest {
 
     protected File prepareTestJar(String filename) throws IOException {
-        File file = new File("src/test", filename);
-        File target = new File("target", filename);
+        Path source = Paths.get("src", "test", filename);
+        Path target = Paths.get("target", filename);
 
-        if (target.exists()) {
-            FileUtils.forceDelete(target);
+        if (Files.exists(target)) {
+            FileUtils.forceDelete(target.toFile());
         }
 
-        FileUtils.copyFile(file, target);
+        Files.createDirectories(target.getParent());
+        Files.copy(
+                source,
+                target,
+                StandardCopyOption.REPLACE_EXISTING,
+                StandardCopyOption.COPY_ATTRIBUTES,
+                LinkOption.NOFOLLOW_LINKS);
 
-        return target;
+        return target.toFile();
     }
 }
