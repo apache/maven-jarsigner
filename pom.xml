@@ -28,7 +28,7 @@
   </parent>
 
   <artifactId>maven-jarsigner</artifactId>
-  <version>3.1.0</version>
+  <version>3.1.1-SNAPSHOT</version>
 
   <name>Apache Maven Jarsigner</name>
   <description>A component to assist in signing jars.</description>
@@ -36,7 +36,7 @@
   <scm>
     <connection>scm:git:https://gitbox.apache.org/repos/asf/maven-jarsigner.git</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/maven-jarsigner.git</developerConnection>
-    <tag>maven-jarsigner-3.1.0</tag>
+    <tag>HEAD</tag>
     <url>https://github.com/apache/maven-jarsigner/tree/${project.scm.tag}</url>
   </scm>
   <issueManagement>
@@ -56,7 +56,7 @@
 
   <properties>
     <slf4jVersion>1.7.36</slf4jVersion>
-    <project.build.outputTimestamp>2024-08-15T12:04:15Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2024-08-15T12:04:35Z</project.build.outputTimestamp>
   </properties>
 
   <dependencies>
