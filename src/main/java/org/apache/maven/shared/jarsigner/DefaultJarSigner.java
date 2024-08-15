@@ -24,7 +24,6 @@ import org.apache.maven.shared.utils.cli.Commandline;
 import org.apache.maven.shared.utils.cli.StreamConsumer;
 import org.apache.maven.shared.utils.cli.javatool.AbstractJavaTool;
 import org.apache.maven.shared.utils.cli.javatool.JavaToolException;
-import org.slf4j.LoggerFactory;
 
 /**
  * Default implementation of component {@link JarSigner}.
@@ -35,6 +34,9 @@ import org.slf4j.LoggerFactory;
 @Named
 public class DefaultJarSigner extends AbstractJavaTool<JarSignerRequest> implements JarSigner {
 
+    /**
+     * default constructor
+     */
     public DefaultJarSigner() {
         super("jarsigner");
     }
@@ -42,13 +44,12 @@ public class DefaultJarSigner extends AbstractJavaTool<JarSignerRequest> impleme
     @Override
     protected Commandline createCommandLine(JarSignerRequest request, String javaToolFile) throws JavaToolException {
         JarSignerCommandLineBuilder cliBuilder = new JarSignerCommandLineBuilder();
-        cliBuilder.setLogger(LoggerFactory.getLogger(this.getClass()));
         cliBuilder.setJarSignerFile(javaToolFile);
         try {
             Commandline cli = cliBuilder.build(request);
             if (request.isVerbose()) {
                 getLogger().info(cli.toString());
-            } else {
+            } else if (getLogger().isDebugEnabled()) {
                 getLogger().debug(cli.toString());
             }
             return cli;
@@ -57,6 +58,7 @@ public class DefaultJarSigner extends AbstractJavaTool<JarSignerRequest> impleme
         }
     }
 
+    @Override
     protected StreamConsumer createSystemOutStreamConsumer(JarSignerRequest request) {
         StreamConsumer systemOut = request.getSystemOutStreamConsumer();
 
@@ -64,17 +66,11 @@ public class DefaultJarSigner extends AbstractJavaTool<JarSignerRequest> impleme
 
             final boolean verbose = request.isVerbose();
 
-            systemOut = new StreamConsumer() {
-
-                /**
-                 * {@inheritDoc}
-                 */
-                public void consumeLine(final String line) {
-                    if (verbose) {
-                        getLogger().info(line);
-                    } else {
-                        getLogger().debug(line);
-                    }
+            systemOut = line -> {
+                if (verbose) {
+                    getLogger().info(line);
+                } else {
+                    getLogger().debug(line);
                 }
             };
         }
