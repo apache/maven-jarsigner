@@ -40,8 +40,8 @@
     <url>https://github.com/apache/maven-jarsigner/tree/${project.scm.tag}</url>
   </scm>
   <issueManagement>
-    <system>jira</system>
-    <url>https://issues.apache.org/jira/issues/?jql=project%3DMSHARED%20AND%20component%3Dmaven-jarsigner</url>
+    <system>GitHub Issues</system>
+    <url>https://github.com/apache/maven-jarsigner/issues</url>
   </issueManagement>
   <ciManagement>
     <system>Jenkins</system>
