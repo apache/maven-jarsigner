@@ -40,7 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class JarSignerUtilTest extends AbstractJarSignerTest {
 
     @Test
-    void testUnsignArchive() throws Exception {
+    void unsignArchive() throws Exception {
 
         File target = prepareTestJar("javax.persistence_2.0.5.v201212031355.jar");
 
