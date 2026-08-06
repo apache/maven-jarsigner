@@ -1,50 +1,43 @@
- ------
- Overview
- ------
- Olivier Lamy
- ------
- 2013-07-24
- ------
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
 
- ~~ Licensed to the Apache Software Foundation (ASF) under one
- ~~ or more contributor license agreements.  See the NOTICE file
- ~~ distributed with this work for additional information
- ~~ regarding copyright ownership.  The ASF licenses this file
- ~~ to you under the Apache License, Version 2.0 (the
- ~~ "License"); you may not use this file except in compliance
- ~~ with the License.  You may obtain a copy of the License at
- ~~
- ~~   http://www.apache.org/licenses/LICENSE-2.0
- ~~
- ~~ Unless required by applicable law or agreed to in writing,
- ~~ software distributed under the License is distributed on an
- ~~ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- ~~ KIND, either express or implied.  See the License for the
- ~~ specific language governing permissions and limitations
- ~~ under the License.
+http://www.apache.org/licenses/LICENSE-2.0
 
- ~~ NOTE: For help with the syntax of this file, see:
- ~~ http://maven.apache.org/doxia/references/apt-format.html
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
 
-${project.name}
+# ${project.name}
 
-  This component provides some utilities to sign/verify jars/files in your Mojos.
+This component provides some utilities to sign/verify jars/files in your Mojos.
 
-* Dependency declaration
+Dependency declaration
+----------------------
 
-+---------
+```unknown
     <dependency>
       <groupId>org.apache.maven.shared</groupId>
       <artifactId>maven-jarsigner</artifactId>
       <version>${project.version}</version>
     </dependency>
-+---------
+```
 
-* Sign a jar
+Sign a jar
+----------
 
-  You must construct a JarSignerSignRequest. See {{{./apidocs/org/apache/maven/shared/jarsigner/JarSignerSignRequest.html}javadoc}} for more available options.
+You must construct a JarSignerSignRequest. See [javadoc](./apidocs/org/apache/maven/shared/jarsigner/JarSignerSignRequest.html) for more available options.
 
-+---------
+```unknown
 
     JarSignerSignRequest request = new JarSignerSignRequest();
     request.setArchive( target );
@@ -54,41 +47,39 @@ ${project.name}
     request.setKeypass( "key-passwd" );
     request.setStorepass( "changeit" );
     request.setSignedjar( new File( "target/ssimple.jar" ) );
+```
 
-+---------
+Now you can use the component to sign your jar:
 
-  Now you can use the component to sign your jar:
-
-+---------
+```unknown
 
     JavaToolResult result = jarSigner.execute( jarSignerRequest );
     // control the execution result
     result.getExitCode()
     // get exception
     result.getExecutionException()
+```
 
-+---------
+Verify a signed jar
+-------------------
 
-* Verify a signed jar
+You must construct a JarSignerVerifyRequest. See [javadoc](./apidocs/org/apache/maven/shared/jarsigner/JarSignerVerifyRequest.html) for more available options.
 
-  You must construct a JarSignerVerifyRequest. See {{{./apidocs/org/apache/maven/shared/jarsigner/JarSignerVerifyRequest.html}javadoc}} for more available options.
-
-+----------
+```unknown
     JarSignerVerifyRequest request = new JarSignerVerifyRequest();
     request.setCerts( true );
     request.setKeystore( "src/test/keystore" );
     request.setVerbose( true );
     request.setAlias( "foo_alias" );
     request.setArchive( new File( "target/ssimple.jar" ) );
-+----------
+```
 
-  Now you can use the component to verify your signed jar:
+Now you can use the component to verify your signed jar:
 
-+----------
+```unknown
     JavaToolResult result = jarSigner.execute( request );
     // control the execution result
     result.getExitCode()
     // get exception
     result.getExecutionException()
-+----------
-
+```
