@@ -20,12 +20,15 @@ package org.apache.maven.shared.jarsigner;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
 import java.util.Map;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -38,6 +41,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @since 1.1
  */
 class JarSignerUtilTest extends AbstractJarSignerTest {
+
+    @TempDir
+    File tempDir;
 
     @Test
     void unsignArchive() throws Exception {
@@ -68,6 +74,21 @@ class JarSignerUtilTest extends AbstractJarSignerTest {
 
         assertEquals(manifest, cleanManifest);
         assertEquals(manifest, originalCleanManifest);
+    }
+
+    @Test
+    void isZipFileWithPrependedData() throws Exception {
+        // Simulate a Spring Boot "fully executable" jar: shell script prepended before the real jar.
+        File realJar = prepareTestJar("javax.persistence_2.0.5.v201212031355.jar");
+        byte[] jarBytes = Files.readAllBytes(realJar.toPath());
+
+        File executableJar = new File(tempDir, "executable.jar");
+        try (OutputStream out = Files.newOutputStream(executableJar.toPath())) {
+            out.write("#!/bin/bash\nexec java \"$@\" -jar \"$0\"\n".getBytes());
+            out.write(jarBytes);
+        }
+
+        assertTrue(JarSignerUtil.isZipFile(executableJar));
     }
 
     private Manifest readManifest(File file) throws IOException {
