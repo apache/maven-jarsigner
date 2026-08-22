@@ -173,8 +173,8 @@ public class JarSignerUtil {
 
     /**
      * Checks whether the specified JAR file entry denotes a signature-related file, i.e. matches
-     * <code>META-INF/*.SF</code>, <code>META-INF/*.DSA</code>, <code>META-INF/*.RSA</code> or
-     * <code>META-INF/*.EC</code>.
+     * <code>META-INF/*.SF</code>, <code>META-INF/*.DSA</code>, <code>META-INF/*.RSA</code>,
+     * <code>META-INF/*.EC</code>, <code>META-INF/*.PKCS7</code> or <code>META-INF/*.p7s</code>.
      *
      * @param entryName The name of the JAR file entry to check, must not be <code>null</code>.
      * @return <code>true</code> if the entry is related to a signature, <code>false</code> otherwise.
@@ -187,7 +187,9 @@ public class JarSignerUtil {
                 return endsWithIgnoreCase(entryName, ".SF")
                         || endsWithIgnoreCase(entryName, ".DSA")
                         || endsWithIgnoreCase(entryName, ".RSA")
-                        || endsWithIgnoreCase(entryName, ".EC");
+                        || endsWithIgnoreCase(entryName, ".EC")
+                        || endsWithIgnoreCase(entryName, ".PKCS7")
+                        || endsWithIgnoreCase(entryName, ".p7s");
             }
         }
         return false;

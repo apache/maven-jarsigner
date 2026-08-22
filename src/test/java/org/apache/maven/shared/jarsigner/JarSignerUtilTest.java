@@ -150,6 +150,12 @@ class JarSignerUtilTest extends AbstractJarSignerTest {
         assertEquals(0, leftover.length, "no .unsigned files should remain after concurrent unsign");
     }
 
+    @Test
+    void isSignatureFileDetectsPKCS7() {
+        assertTrue(JarSignerUtil.isSignatureFile("META-INF/CERT.PKCS7"));
+        assertTrue(JarSignerUtil.isSignatureFile("META-INF/cert.p7s"));
+    }
+
     private Manifest readManifest(File file) throws IOException {
         JarFile jarFile = new JarFile(file);
 
