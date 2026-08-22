@@ -76,7 +76,7 @@ public class JarSignerUtil {
      */
     public static void unsignArchive(File jarFile) throws IOException {
 
-        Path unsignedPath = new File(jarFile.getAbsolutePath() + ".unsigned").toPath();
+        Path unsignedPath = Files.createTempFile(jarFile.toPath().getParent(), ".unsigned", "");
 
         try (ZipInputStream zis = new ZipInputStream(new BufferedInputStream(Files.newInputStream(jarFile.toPath())));
                 ZipOutputStream zos =
