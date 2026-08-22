@@ -32,6 +32,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -89,6 +90,11 @@ class JarSignerUtilTest extends AbstractJarSignerTest {
         }
 
         assertTrue(JarSignerUtil.isZipFile(executableJar));
+    }
+
+    @Test
+    void isZipFileWithNull() {
+        assertThrows(NullPointerException.class, () -> JarSignerUtil.isZipFile(null));
     }
 
     private Manifest readManifest(File file) throws IOException {
