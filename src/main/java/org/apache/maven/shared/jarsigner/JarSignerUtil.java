@@ -56,6 +56,10 @@ public class JarSignerUtil {
      * @return <code>true</code> if the file looks like a ZIP file, <code>false</code> otherwise.
      */
     public static boolean isZipFile(final File file) {
+        if (file == null) {
+            throw new NullPointerException("file");
+        }
+
         boolean result = false;
 
         try (JarFile jarFile = new JarFile(file)) {
