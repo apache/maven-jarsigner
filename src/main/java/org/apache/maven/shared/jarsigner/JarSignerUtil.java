@@ -95,7 +95,7 @@ public class JarSignerUtil {
                 if (isManifestFile(ze.getName())) {
 
                     // build a new manifest while removing all digest entries
-                    // see https://jira.codehaus.org/browse/MSHARED-314
+                    // see https://github.com/apache/maven-jarsigner/issues/60
                     Manifest oldManifest = new Manifest(zis);
                     Manifest newManifest = buildUnsignedManifest(oldManifest);
                     newManifest.write(zos);
