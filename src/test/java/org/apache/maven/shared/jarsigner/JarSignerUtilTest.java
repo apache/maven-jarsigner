@@ -151,13 +151,9 @@ class JarSignerUtilTest extends AbstractJarSignerTest {
     }
 
     private Manifest readManifest(File file) throws IOException {
-        JarFile jarFile = new JarFile(file);
-
-        Manifest manifest = jarFile.getManifest();
-
-        jarFile.close();
-
-        return manifest;
+        try (JarFile jarFile = new JarFile(file)) {
+            return jarFile.getManifest();
+        }
     }
 
     private boolean containsDigest(Manifest manifest) {
