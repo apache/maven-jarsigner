@@ -82,31 +82,36 @@ public class JarSignerUtil {
 
         Path unsignedPath = Files.createTempFile(jarFile.toPath().getParent(), ".unsigned", "");
 
-        try (ZipInputStream zis = new ZipInputStream(new BufferedInputStream(Files.newInputStream(jarFile.toPath())));
-                ZipOutputStream zos =
-                        new ZipOutputStream(new BufferedOutputStream(Files.newOutputStream(unsignedPath)))) {
-            for (ZipEntry ze = zis.getNextEntry(); ze != null; ze = zis.getNextEntry()) {
-                if (isSignatureFile(ze.getName())) {
-                    continue;
+        try {
+            try (ZipInputStream zis =
+                            new ZipInputStream(new BufferedInputStream(Files.newInputStream(jarFile.toPath())));
+                    ZipOutputStream zos =
+                            new ZipOutputStream(new BufferedOutputStream(Files.newOutputStream(unsignedPath)))) {
+                for (ZipEntry ze = zis.getNextEntry(); ze != null; ze = zis.getNextEntry()) {
+                    if (isSignatureFile(ze.getName())) {
+                        continue;
+                    }
+
+                    zos.putNextEntry(new ZipEntry(ze.getName()));
+
+                    if (isManifestFile(ze.getName())) {
+
+                        // build a new manifest while removing all digest entries
+                        // see https://github.com/apache/maven-jarsigner/issues/60
+                        Manifest oldManifest = new Manifest(zis);
+                        Manifest newManifest = buildUnsignedManifest(oldManifest);
+                        newManifest.write(zos);
+
+                        continue;
+                    }
+
+                    IOUtils.copy(zis, zos);
                 }
-
-                zos.putNextEntry(new ZipEntry(ze.getName()));
-
-                if (isManifestFile(ze.getName())) {
-
-                    // build a new manifest while removing all digest entries
-                    // see https://github.com/apache/maven-jarsigner/issues/60
-                    Manifest oldManifest = new Manifest(zis);
-                    Manifest newManifest = buildUnsignedManifest(oldManifest);
-                    newManifest.write(zos);
-
-                    continue;
-                }
-
-                IOUtils.copy(zis, zos);
             }
+            Files.move(unsignedPath, jarFile.toPath(), REPLACE_EXISTING);
+        } finally {
+            Files.deleteIfExists(unsignedPath);
         }
-        Files.move(unsignedPath, jarFile.toPath(), REPLACE_EXISTING);
     }
 
     /**
