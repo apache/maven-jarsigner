@@ -23,6 +23,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
@@ -32,7 +36,11 @@ import org.junit.jupiter.api.io.TempDir;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+<<<<<<< HEAD
 import static org.junit.jupiter.api.Assertions.assertThrows;
+=======
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+>>>>>>> master
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
@@ -95,6 +103,54 @@ class JarSignerUtilTest extends AbstractJarSignerTest {
     @Test
     void isZipFileWithNull() {
         assertThrows(NullPointerException.class, () -> JarSignerUtil.isZipFile(null));
+    }
+
+    @Test
+    void unsignArchiveConcurrent() throws Exception {
+        File target = prepareTestJar("javax.persistence_2.0.5.v201212031355.jar");
+
+        // Use a latch to make both threads start unsigning at the same moment,
+        // maximizing the window for the race condition on the shared .unsigned path.
+        CountDownLatch startLatch = new CountDownLatch(1);
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+
+        try {
+            Future<?> f1 = executor.submit(() -> {
+                try {
+                    startLatch.await();
+                    JarSignerUtil.unsignArchive(target);
+                } catch (Exception e) {
+                    // One thread may fail with NoSuchFileException because the other
+                    // already moved the shared .unsigned file. This is the race condition.
+                }
+            });
+
+            Future<?> f2 = executor.submit(() -> {
+                try {
+                    startLatch.await();
+                    JarSignerUtil.unsignArchive(target);
+                } catch (Exception e) {
+                    // Same as above.
+                }
+            });
+
+            startLatch.countDown();
+
+            f1.get();
+            f2.get();
+        } finally {
+            executor.shutdownNow();
+        }
+
+        // The jar must still be openable and readable after concurrent unsigning.
+        try (JarFile jar = new JarFile(target)) {
+            assertNotNull(jar.getManifest(), "jar manifest must be readable after concurrent unsign");
+        }
+
+        // Verify no orphaned .unsigned files remain in the jar's parent directory.
+        File jarDir = target.getAbsoluteFile().getParentFile();
+        String[] leftover = jarDir.list((dir, name) -> name.endsWith(".unsigned"));
+        assertEquals(0, leftover.length, "no .unsigned files should remain after concurrent unsign");
     }
 
     private Manifest readManifest(File file) throws IOException {
