@@ -26,6 +26,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 import java.util.jar.Attributes;
+import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -57,8 +58,8 @@ public class JarSignerUtil {
     public static boolean isZipFile(final File file) {
         boolean result = false;
 
-        try (ZipInputStream zis = new ZipInputStream(Files.newInputStream(file.toPath()))) {
-            result = zis.getNextEntry() != null;
+        try (JarFile jarFile = new JarFile(file)) {
+            result = true;
         } catch (Exception e) {
             // ignore, will fail below
         }
