@@ -64,7 +64,7 @@ public class JarSignerUtil {
 
         try (JarFile jarFile = new JarFile(file)) {
             result = true;
-        } catch (Exception e) {
+        } catch (IOException e) {
             // ignore, will fail below
         }
 
