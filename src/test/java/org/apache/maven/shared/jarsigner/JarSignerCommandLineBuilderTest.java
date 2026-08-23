@@ -33,6 +33,9 @@ class JarSignerCommandLineBuilderTest {
     private JarSignerCommandLineBuilder builder;
     private JarSignerSignRequest request;
 
+    private static final boolean IS_WINDOWS =
+            System.getProperty("os.name", "").toLowerCase().contains("win");
+
     @BeforeEach
     void setUp() throws Exception {
         builder = new JarSignerCommandLineBuilder();
@@ -49,26 +52,51 @@ class JarSignerCommandLineBuilderTest {
     }
 
     @Test
-    void passwordWithAmpersandShouldBeEscaped() throws Exception {
+    void passwordWithAmpersandShouldBeEscapedOnWindows() throws Exception {
         request.setStorepass("p&ssword");
+        String argsString = buildArgsString();
 
-        assertTrue(buildArgsString().contains("p^&ssword"), "Password with '&' should be escaped with '^'");
+        if (IS_WINDOWS) {
+            assertTrue(
+                    argsString.contains("p^&ssword"),
+                    "Password with '&' should be escaped with '^' on Windows, args: " + argsString);
+        } else {
+            assertTrue(
+                    argsString.contains("p&ssword"),
+                    "Password should pass through unchanged on non-Windows, args: " + argsString);
+        }
     }
 
     @Test
-    void keypassWithAmpersandShouldBeEscaped() throws Exception {
+    void keypassWithAmpersandShouldBeEscapedOnWindows() throws Exception {
         request.setKeypass("k&ypass");
+        String argsString = buildArgsString();
 
-        assertTrue(buildArgsString().contains("k^&ypass"), "Keypass with '&' should be escaped with '^'");
+        if (IS_WINDOWS) {
+            assertTrue(
+                    argsString.contains("k^&ypass"),
+                    "Keypass with '&' should be escaped with '^' on Windows, args: " + argsString);
+        } else {
+            assertTrue(
+                    argsString.contains("k&ypass"),
+                    "Keypass should pass through unchanged on non-Windows, args: " + argsString);
+        }
     }
 
     @Test
-    void passwordWithOtherSpecialCharsShouldBeEscaped() throws Exception {
+    void passwordWithOtherSpecialCharsShouldBeEscapedOnWindows() throws Exception {
         request.setStorepass("p|ss<word>(1)@home^end");
+        String argsString = buildArgsString();
 
-        assertTrue(
-                buildArgsString().contains("p^|ss^<word^>^(1^)^@home^^end"),
-                "Password with special chars should be escaped");
+        if (IS_WINDOWS) {
+            assertTrue(
+                    argsString.contains("p^|ss^<word^>^(1^)^@home^^end"),
+                    "Special chars should be escaped on Windows, args: " + argsString);
+        } else {
+            assertTrue(
+                    argsString.contains("p|ss<word>(1)@home^end"),
+                    "Password should pass through unchanged on non-Windows, args: " + argsString);
+        }
     }
 
     @Test
@@ -82,8 +110,6 @@ class JarSignerCommandLineBuilderTest {
 
     @Test
     void nullPasswordShouldNotCauseError() throws Exception {
-        String argsString = buildArgsString();
-
-        assertFalse(argsString.contains("-storepass"), "No -storepass should appear when password is null");
+        assertFalse(buildArgsString().contains("-storepass"), "No -storepass should appear when password is null");
     }
 }

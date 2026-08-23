@@ -142,12 +142,16 @@ public class JarSignerCommandLineBuilder {
      * Escapes special cmd.exe characters in a password string with {@code ^}.
      * On Windows, passwords are passed on the command line and characters like {@code &}
      * are interpreted by cmd.exe as command separators unless escaped.
+     * On other platforms this is a no-op since the shell handles quoting correctly.
      *
      * @param password the password to escape
      * @return the escaped password, or {@code null} if the input is {@code null}
      */
     static String escapePassword(String password) {
         if (password == null || password.isEmpty()) {
+            return password;
+        }
+        if (!isWindows()) {
             return password;
         }
         StringBuilder sb = new StringBuilder(password.length());
@@ -159,6 +163,10 @@ public class JarSignerCommandLineBuilder {
             sb.append(c);
         }
         return sb.toString();
+    }
+
+    private static boolean isWindows() {
+        return System.getProperty("os.name", "").toLowerCase().contains("win");
     }
 
     protected void build(JarSignerSignRequest request, Commandline cli) {
