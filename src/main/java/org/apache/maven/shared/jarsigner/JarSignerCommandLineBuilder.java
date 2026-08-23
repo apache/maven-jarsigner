@@ -19,6 +19,7 @@
 package org.apache.maven.shared.jarsigner;
 
 import java.io.File;
+import java.util.Locale;
 
 import org.apache.maven.shared.utils.StringUtils;
 import org.apache.maven.shared.utils.cli.Arg;
@@ -160,7 +161,7 @@ public class JarSignerCommandLineBuilder {
     }
 
     private static boolean isWindows() {
-        return System.getProperty("os.name", "").toLowerCase().contains("win");
+        return System.getProperty("os.name", "").toLowerCase(Locale.ROOT).contains("win");
     }
 
     protected void build(JarSignerSignRequest request, Commandline cli) {
