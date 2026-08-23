@@ -59,7 +59,7 @@ public class JarSignerCommandLineBuilder {
         if (!(storepass == null || storepass.isEmpty())) {
             cli.createArg().setValue("-storepass");
             Arg arg = cli.createArg();
-            arg.setValue(escapePassword(storepass));
+            arg.setValue(isWindows() ? escapePassword(storepass) : storepass);
             arg.setMask(true);
         }
 
@@ -140,18 +140,12 @@ public class JarSignerCommandLineBuilder {
 
     /**
      * Escapes special cmd.exe characters in a password string with {@code ^}.
-     * On Windows, passwords are passed on the command line and characters like {@code &}
-     * are interpreted by cmd.exe as command separators unless escaped.
-     * On other platforms this is a no-op since the shell handles quoting correctly.
      *
      * @param password the password to escape
      * @return the escaped password, or {@code null} if the input is {@code null}
      */
     static String escapePassword(String password) {
         if (password == null || password.isEmpty()) {
-            return password;
-        }
-        if (!isWindows()) {
             return password;
         }
         StringBuilder sb = new StringBuilder(password.length());
@@ -175,7 +169,7 @@ public class JarSignerCommandLineBuilder {
         if (!(keypass == null || keypass.isEmpty())) {
             cli.createArg().setValue("-keypass");
             Arg arg = cli.createArg();
-            arg.setValue(escapePassword(keypass));
+            arg.setValue(isWindows() ? escapePassword(keypass) : keypass);
             arg.setMask(true);
         }
 
