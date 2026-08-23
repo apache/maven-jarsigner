@@ -164,8 +164,6 @@ class JarSignerUtilTest extends AbstractJarSignerTest {
         // Make the jar's parent directory read-only so both createTempFile and
         // Files.move fail. The key assertion is that no .unsigned files remain
         // after the failure.
-        java.util.Set<java.nio.file.attribute.PosixFilePermission> savedPerms =
-                Files.getPosixFilePermissions(jarDir.toPath());
         jarDir.setReadOnly();
         try {
             try {
@@ -178,7 +176,7 @@ class JarSignerUtilTest extends AbstractJarSignerTest {
             assertNotNull(orphans);
             assertEquals(0, orphans.length, "no orphaned .unsigned files should remain after failure");
         } finally {
-            Files.setPosixFilePermissions(jarDir.toPath(), savedPerms);
+            jarDir.setWritable(true);
         }
     }
 
