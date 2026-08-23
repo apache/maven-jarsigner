@@ -22,100 +22,68 @@ import java.io.File;
 import java.util.Arrays;
 
 import org.apache.maven.shared.utils.cli.Commandline;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class JarSignerCommandLineBuilderTest {
 
-    @Test
-    void passwordWithAmpersandShouldBeEscaped() throws Exception {
-        JarSignerCommandLineBuilder builder = new JarSignerCommandLineBuilder();
+    private JarSignerCommandLineBuilder builder;
+    private JarSignerSignRequest request;
+
+    @BeforeEach
+    void setUp() throws Exception {
+        builder = new JarSignerCommandLineBuilder();
         builder.setJarSignerFile("jarsigner");
 
-        JarSignerSignRequest request = new JarSignerSignRequest();
-        request.setStorepass("p&ssword");
+        request = new JarSignerSignRequest();
         request.setAlias("myalias");
         request.setArchive(new File("test.jar"));
+    }
 
+    private String buildArgsString() throws Exception {
         Commandline cli = builder.build(request);
-        String[] args = cli.getArguments();
-        String argsString = Arrays.toString(args);
+        return Arrays.toString(cli.getArguments());
+    }
 
-        assertTrue(
-                argsString.contains("p^&ssword"), "Password with '&' should be escaped with '^', args: " + argsString);
+    @Test
+    void passwordWithAmpersandShouldBeEscaped() throws Exception {
+        request.setStorepass("p&ssword");
+
+        assertTrue(buildArgsString().contains("p^&ssword"), "Password with '&' should be escaped with '^'");
     }
 
     @Test
     void keypassWithAmpersandShouldBeEscaped() throws Exception {
-        JarSignerCommandLineBuilder builder = new JarSignerCommandLineBuilder();
-        builder.setJarSignerFile("jarsigner");
-
-        JarSignerSignRequest request = new JarSignerSignRequest();
         request.setKeypass("k&ypass");
-        request.setAlias("myalias");
-        request.setArchive(new File("test.jar"));
 
-        Commandline cli = builder.build(request);
-        String[] args = cli.getArguments();
-        String argsString = Arrays.toString(args);
-
-        assertTrue(argsString.contains("k^&ypass"), "Keypass with '&' should be escaped with '^', args: " + argsString);
+        assertTrue(buildArgsString().contains("k^&ypass"), "Keypass with '&' should be escaped with '^'");
     }
 
     @Test
     void passwordWithOtherSpecialCharsShouldBeEscaped() throws Exception {
-        JarSignerCommandLineBuilder builder = new JarSignerCommandLineBuilder();
-        builder.setJarSignerFile("jarsigner");
-
-        JarSignerSignRequest request = new JarSignerSignRequest();
         request.setStorepass("p|ss<word>(1)@home^end");
-        request.setAlias("myalias");
-        request.setArchive(new File("test.jar"));
-
-        Commandline cli = builder.build(request);
-        String[] args = cli.getArguments();
-        String argsString = Arrays.toString(args);
 
         assertTrue(
-                argsString.contains("p^|ss^<word^>^(1^)^@home^^end"),
-                "Password with special chars should be escaped, args: " + argsString);
+                buildArgsString().contains("p^|ss^<word^>^(1^)^@home^^end"),
+                "Password with special chars should be escaped");
     }
 
     @Test
     void passwordWithoutSpecialCharsShouldNotBeChanged() throws Exception {
-        JarSignerCommandLineBuilder builder = new JarSignerCommandLineBuilder();
-        builder.setJarSignerFile("jarsigner");
-
-        JarSignerSignRequest request = new JarSignerSignRequest();
         request.setStorepass("simplepassword");
-        request.setAlias("myalias");
-        request.setArchive(new File("test.jar"));
-
-        Commandline cli = builder.build(request);
-        String[] args = cli.getArguments();
-        String argsString = Arrays.toString(args);
 
         assertTrue(
-                argsString.contains("simplepassword"),
-                "Password without special chars should pass through unchanged, args: " + argsString);
+                buildArgsString().contains("simplepassword"),
+                "Password without special chars should pass through unchanged");
     }
 
     @Test
     void nullPasswordShouldNotCauseError() throws Exception {
-        JarSignerCommandLineBuilder builder = new JarSignerCommandLineBuilder();
-        builder.setJarSignerFile("jarsigner");
+        String argsString = buildArgsString();
 
-        JarSignerSignRequest request = new JarSignerSignRequest();
-        request.setAlias("myalias");
-        request.setArchive(new File("test.jar"));
-
-        Commandline cli = builder.build(request);
-        String[] args = cli.getArguments();
-        String argsString = Arrays.toString(args);
-
-        assertTrue(
-                !argsString.contains("-storepass"),
-                "No -storepass should appear when password is null, args: " + argsString);
+        assertFalse(argsString.contains("-storepass"), "No -storepass should appear when password is null");
     }
 }
