@@ -105,8 +105,10 @@ public class JarSignerUtil {
 
                 IOUtils.copy(zis, zos);
             }
+            Files.move(unsignedPath, jarFile.toPath(), REPLACE_EXISTING);
+        } finally {
+            Files.deleteIfExists(unsignedPath);
         }
-        Files.move(unsignedPath, jarFile.toPath(), REPLACE_EXISTING);
     }
 
     /**

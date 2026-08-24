@@ -156,6 +156,30 @@ class JarSignerUtilTest extends AbstractJarSignerTest {
         assertTrue(JarSignerUtil.isSignatureFile("META-INF/cert.p7s"));
     }
 
+    @Test
+    void unsignArchiveLeavesNoOrphanedTempFileOnFailure() throws Exception {
+        File target = prepareTestJar("javax.persistence_2.0.5.v201212031355.jar");
+        File jarDir = target.getAbsoluteFile().getParentFile();
+
+        // Make the jar's parent directory read-only so both createTempFile and
+        // Files.move fail. The key assertion is that no .unsigned files remain
+        // after the failure.
+        jarDir.setReadOnly();
+        try {
+            try {
+                JarSignerUtil.unsignArchive(target);
+            } catch (IOException expected) {
+                // expected: cannot write to read-only directory
+            }
+
+            File[] orphans = jarDir.listFiles((dir, name) -> name.endsWith(".unsigned"));
+            assertNotNull(orphans);
+            assertEquals(0, orphans.length, "no orphaned .unsigned files should remain after failure");
+        } finally {
+            jarDir.setWritable(true);
+        }
+    }
+
     private Manifest readManifest(File file) throws IOException {
         try (JarFile jarFile = new JarFile(file)) {
             return jarFile.getManifest();
