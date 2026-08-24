@@ -19,6 +19,7 @@
 package org.apache.maven.shared.jarsigner;
 
 import java.io.File;
+import java.util.Locale;
 
 import org.apache.maven.shared.utils.StringUtils;
 import org.apache.maven.shared.utils.cli.Arg;
@@ -59,7 +60,7 @@ public class JarSignerCommandLineBuilder {
         if (!(storepass == null || storepass.isEmpty())) {
             cli.createArg().setValue("-storepass");
             Arg arg = cli.createArg();
-            arg.setValue(storepass);
+            arg.setValue(isWindows() ? escapePassword(storepass) : storepass);
             arg.setMask(true);
         }
 
@@ -138,13 +139,38 @@ public class JarSignerCommandLineBuilder {
         }
     }
 
+    /**
+     * Escapes special cmd.exe characters in a password string with {@code ^}.
+     *
+     * @param password the password to escape
+     * @return the escaped password, or {@code null} if the input is {@code null}
+     */
+    static String escapePassword(String password) {
+        if (password == null || password.isEmpty()) {
+            return password;
+        }
+        StringBuilder sb = new StringBuilder(password.length());
+        for (int i = 0; i < password.length(); i++) {
+            char c = password.charAt(i);
+            if (c == '&' || c == '<' || c == '>' || c == '(' || c == ')' || c == '@' || c == '^' || c == '|') {
+                sb.append('^');
+            }
+            sb.append(c);
+        }
+        return sb.toString();
+    }
+
+    private static boolean isWindows() {
+        return System.getProperty("os.name", "").toLowerCase(Locale.ROOT).contains("win");
+    }
+
     protected void build(JarSignerSignRequest request, Commandline cli) {
 
         String keypass = request.getKeypass();
         if (!(keypass == null || keypass.isEmpty())) {
             cli.createArg().setValue("-keypass");
             Arg arg = cli.createArg();
-            arg.setValue(keypass);
+            arg.setValue(isWindows() ? escapePassword(keypass) : keypass);
             arg.setMask(true);
         }
 
