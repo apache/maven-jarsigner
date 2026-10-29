@@ -44,8 +44,8 @@
     <url>https://github.com/apache/maven-jarsigner/issues</url>
   </issueManagement>
   <ciManagement>
-    <system>Jenkins</system>
-    <url>https://ci-maven.apache.org/job/Maven/job/maven-box/job/maven-jarsigner/</url>
+    <system>GitHub</system>
+    <url>https://github.com/apache/maven-jarsigner/actions</url>
   </ciManagement>
   <distributionManagement>
     <site>
