@@ -116,12 +116,12 @@
               ! Using append to prevent overwriting of
               ! inherited configuration.
             -->
-            <excludes combine.children="append">
+            <inputExcludes combine.children="append">
               <!--
                 ! Binary file so no license possible
               -->
-              <exclude>src/test/keystore</exclude>
-            </excludes>
+              <inputExclude>src/test/keystore</inputExclude>
+            </inputExcludes>
           </configuration>
         </plugin>
       </plugins>
