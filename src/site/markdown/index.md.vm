@@ -53,7 +53,7 @@ Now you can use the component to sign your jar:
 
 ```java
 
-    JavaToolResult result = jarSigner.execute( jarSignerRequest );
+    JavaToolResult result = jarSigner.execute( request );
     // control the execution result
     result.getExitCode()
     // get exception
