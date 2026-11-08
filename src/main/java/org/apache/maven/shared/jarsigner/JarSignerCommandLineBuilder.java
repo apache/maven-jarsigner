@@ -21,7 +21,6 @@ package org.apache.maven.shared.jarsigner;
 import java.io.File;
 import java.util.Locale;
 
-import org.apache.maven.shared.utils.StringUtils;
 import org.apache.maven.shared.utils.cli.Arg;
 import org.apache.maven.shared.utils.cli.Commandline;
 import org.slf4j.Logger;
@@ -181,25 +180,25 @@ public class JarSignerCommandLineBuilder {
         }
 
         String tsaLocation = request.getTsaLocation();
-        if (StringUtils.isNotBlank(tsaLocation)) {
+        if (isNotBlank(tsaLocation)) {
             cli.createArg().setValue("-tsa");
             cli.createArg().setValue(tsaLocation);
         }
 
         String tsaAlias = request.getTsaAlias();
-        if (StringUtils.isNotBlank(tsaAlias)) {
+        if (isNotBlank(tsaAlias)) {
             cli.createArg().setValue("-tsacert");
             cli.createArg().setValue(tsaAlias);
         }
 
         String tsapolicyid = request.getTsapolicyid();
-        if (StringUtils.isNotBlank(tsapolicyid)) {
+        if (isNotBlank(tsapolicyid)) {
             cli.createArg().setValue("-tsapolicyid");
             cli.createArg().setValue(tsapolicyid);
         }
 
         String tsadigestalg = request.getTsadigestalg();
-        if (StringUtils.isNotBlank(tsadigestalg)) {
+        if (isNotBlank(tsadigestalg)) {
             cli.createArg().setValue("-tsadigestalg");
             cli.createArg().setValue(tsadigestalg);
         }
@@ -223,5 +222,17 @@ public class JarSignerCommandLineBuilder {
         if (request.isCerts()) {
             cli.createArg().setValue("-certs");
         }
+    }
+
+    private static boolean isNotBlank(String str) {
+        if (str == null) {
+            return false;
+        }
+        for (int i = 0; i < str.length(); i++) {
+            if (!Character.isWhitespace(str.charAt(i))) {
+                return true;
+            }
+        }
+        return false;
     }
 }
