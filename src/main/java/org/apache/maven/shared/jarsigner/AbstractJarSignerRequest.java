@@ -98,6 +98,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isVerbose() {
         return verbose;
     }
@@ -105,6 +106,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getKeystore() {
         return keystore;
     }
@@ -112,6 +114,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getStoretype() {
         return storetype;
     }
@@ -119,6 +122,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getStorepass() {
         return storepass;
     }
@@ -126,6 +130,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getAlias() {
         return alias;
     }
@@ -133,6 +138,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getProviderName() {
         return providerName;
     }
@@ -140,6 +146,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getProviderClass() {
         return providerClass;
     }
@@ -147,6 +154,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getProviderArg() {
         return providerArg;
     }
@@ -154,6 +162,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public String getMaxMemory() {
         return maxMemory;
     }
@@ -161,6 +170,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public String[] getArguments() {
         return arguments;
     }
@@ -168,6 +178,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public File getWorkingDirectory() {
         return workingDirectory;
     }
@@ -175,6 +186,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public File getArchive() {
         return archive;
     }
@@ -182,6 +194,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public boolean isProtectedAuthenticationPath() {
         return protectedAuthenticationPath;
     }
@@ -189,6 +202,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setVerbose(boolean verbose) {
         this.verbose = verbose;
     }
@@ -196,6 +210,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setKeystore(String keystore) {
         this.keystore = keystore;
     }
@@ -203,6 +218,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setStoretype(String storetype) {
         this.storetype = storetype;
     }
@@ -210,6 +226,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setStorepass(String storepass) {
         this.storepass = storepass;
     }
@@ -217,6 +234,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setProviderName(String providerName) {
         this.providerName = providerName;
     }
@@ -224,6 +242,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setProviderClass(String providerClass) {
         this.providerClass = providerClass;
     }
@@ -231,6 +250,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setProviderArg(String providerArg) {
         this.providerArg = providerArg;
     }
@@ -238,6 +258,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setAlias(String alias) {
         this.alias = alias;
     }
@@ -245,6 +266,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setMaxMemory(String maxMemory) {
         this.maxMemory = maxMemory;
     }
@@ -252,6 +274,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setArguments(String... arguments) {
         this.arguments = arguments;
     }
@@ -259,6 +282,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setWorkingDirectory(File workingDirectory) {
         this.workingDirectory = workingDirectory;
     }
@@ -266,6 +290,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setArchive(File archive) {
         this.archive = archive;
     }
@@ -273,6 +298,7 @@ public abstract class AbstractJarSignerRequest extends AbstractJavaToolRequest i
     /**
      * {@inheritDoc}
      */
+    @Override
     public void setProtectedAuthenticationPath(boolean protect) {
         this.protectedAuthenticationPath = protect;
     }
