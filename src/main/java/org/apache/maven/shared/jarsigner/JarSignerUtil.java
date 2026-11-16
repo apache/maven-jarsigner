@@ -42,7 +42,7 @@ import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
  * @author Tony Chemit
  * @since 1.0
  */
-public class JarSignerUtil {
+public final class JarSignerUtil {
 
     private JarSignerUtil() {
         // static class
