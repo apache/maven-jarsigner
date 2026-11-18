@@ -59,7 +59,7 @@ There are some guidelines which will make applying PRs easier for us:
     If you feel the source code should be reformatted, create a separate PR for this change.
   + Check for unnecessary whitespace with `git diff --check` before committing.
 + Make sure you have added the necessary tests (JUnit/IT) for your changes.
-+ Run all the tests with `mvn -Prun-its verify` to assure nothing else was accidentally broken.
++ Run all the tests with `mvn verify` to assure nothing else was accidentally broken.
 + Submit a pull request to the repository in the Apache organization.
 
 If you plan to contribute on a regular basis, please consider filing a [contributor license agreement][cla].
@@ -79,6 +79,5 @@ Additional Resources
 [ml-list]: https://maven.apache.org/mailing-lists.html
 [code-style]: https://maven.apache.org/developers/conventions/code.html
 [cla]: https://www.apache.org/licenses/#clas
-[maven-wiki]: https://cwiki.apache.org/confluence/display/MAVEN/Index
 [test-results]: https://ci-maven.apache.org/job/Maven/job/maven-box/job/maven-jarsigner/job/master/lastCompletedBuild/testReport/
 [build]: https://ci-maven.apache.org/job/Maven/job/maven-box/job/maven-jarsigner/job/master/
