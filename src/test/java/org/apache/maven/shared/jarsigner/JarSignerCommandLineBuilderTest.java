@@ -51,52 +51,32 @@ class JarSignerCommandLineBuilderTest {
         return Arrays.toString(cli.getArguments());
     }
 
+    private void assertEscaped(String raw, String escaped, String argsString) {
+        if (IS_WINDOWS) {
+            assertTrue(argsString.contains(escaped), "Value should be escaped on Windows, args: " + argsString);
+        } else {
+            assertTrue(
+                    argsString.contains(raw),
+                    "Value should pass through unchanged on non-Windows, args: " + argsString);
+        }
+    }
+
     @Test
     void passwordWithAmpersandShouldBeEscapedOnWindows() throws Exception {
         request.setStorepass("p&ssword");
-        String argsString = buildArgsString();
-
-        if (IS_WINDOWS) {
-            assertTrue(
-                    argsString.contains("p^&ssword"),
-                    "Password with '&' should be escaped with '^' on Windows, args: " + argsString);
-        } else {
-            assertTrue(
-                    argsString.contains("p&ssword"),
-                    "Password should pass through unchanged on non-Windows, args: " + argsString);
-        }
+        assertEscaped("p&ssword", "p^&ssword", buildArgsString());
     }
 
     @Test
     void keypassWithAmpersandShouldBeEscapedOnWindows() throws Exception {
         request.setKeypass("k&ypass");
-        String argsString = buildArgsString();
-
-        if (IS_WINDOWS) {
-            assertTrue(
-                    argsString.contains("k^&ypass"),
-                    "Keypass with '&' should be escaped with '^' on Windows, args: " + argsString);
-        } else {
-            assertTrue(
-                    argsString.contains("k&ypass"),
-                    "Keypass should pass through unchanged on non-Windows, args: " + argsString);
-        }
+        assertEscaped("k&ypass", "k^&ypass", buildArgsString());
     }
 
     @Test
     void passwordWithOtherSpecialCharsShouldBeEscapedOnWindows() throws Exception {
         request.setStorepass("p|ss<word>(1)@home^end");
-        String argsString = buildArgsString();
-
-        if (IS_WINDOWS) {
-            assertTrue(
-                    argsString.contains("p^|ss^<word^>^(1^)^@home^^end"),
-                    "Special chars should be escaped on Windows, args: " + argsString);
-        } else {
-            assertTrue(
-                    argsString.contains("p|ss<word>(1)@home^end"),
-                    "Password should pass through unchanged on non-Windows, args: " + argsString);
-        }
+        assertEscaped("p|ss<word>(1)@home^end", "p^|ss^<word^>^(1^)^@home^^end", buildArgsString());
     }
 
     @Test
